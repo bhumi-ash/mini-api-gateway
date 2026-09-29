@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  backend-a:
+    build: ./backend-a
+
+  backend-b:
+    build: ./backend-b
+
+  gateway:
+    build: ./gateway
+    ports:
+      - "8000:8000"
+    depends_on:
+      - backend-a
+      - backend-b
