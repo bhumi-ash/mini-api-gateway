@@ -6,6 +6,11 @@ services:
   backend-b:
     build: ./backend-b
 
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
   gateway:
     build: ./gateway
     ports:
@@ -13,3 +18,6 @@ services:
     depends_on:
       - backend-a
       - backend-b
+      - redis
+    environment:
+      - REDIS_HOST=redis

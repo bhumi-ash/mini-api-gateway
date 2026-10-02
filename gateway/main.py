@@ -1,3 +1,4 @@
+from rate_limiter import is_allowed
 from fastapi import FastAPI, Request, Response, HTTPException
 import httpx
 
@@ -46,6 +47,8 @@ async def gateway_forward(
 
     # Verify JWT
     user_id = verify_token(token)
+    if not is_allowed(user_id):
+        raise HTTPException(status_code=429, detail="Rate limit exceeded, slow down")
 
     if not user_id:
         raise HTTPException(
