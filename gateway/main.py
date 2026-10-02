@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, Response, Header, HTTPException
+from fastapi import FastAPI, Request, Response, HTTPException
 import httpx
 
 from auth import create_token, verify_token, FAKE_USERS
@@ -31,9 +31,9 @@ def login(username: str, password: str):
 async def gateway_forward(
     service: str,
     path: str,
-    request: Request,
-    authorization: str = Header(None)
+    request: Request
 ):
+    authorization = request.headers.get("authorization")
     # Check Authorization header
     if not authorization or not authorization.startswith("Bearer "):
         raise HTTPException(
