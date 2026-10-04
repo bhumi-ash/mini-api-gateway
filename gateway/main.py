@@ -1,5 +1,6 @@
 from circuit_breaker import breakers
 from rate_limiter import is_allowed
+from prometheus_fastapi_instrumentator import Instrumentator
 
 from fastapi import FastAPI, Request, Response, HTTPException
 import httpx
@@ -8,6 +9,8 @@ from auth import create_token, verify_token, FAKE_USERS
 
 
 app = FastAPI()
+
+Instrumentator().instrument(app).expose(app)
 
 
 # Which backend handles which path prefix
