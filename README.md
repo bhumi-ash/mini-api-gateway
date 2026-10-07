@@ -33,27 +33,27 @@ Start the gateway with three instances:
 
 ```bash
 docker compose up --build --scale gateway=3
-
-##Load Test Results
-1. Fixed Window
+```
+## Load Test Results
+### 1. Fixed Window
 - Requests: 12,428
 - Failed/blocked requests: 12,248
 - Throughput: 52.8 req/sec
 - p95 latency: 570 ms
 The high number of blocked requests is expected because this test intentionally generates traffic beyond the configured rate limit.
-2. Multi-Instance Gateway
+### 2. Multi-Instance Gateway
 - Requests: 7,655
 - Failed/blocked requests: 7,545
 - Throughput: 142.9 req/sec
 - p95 latency: 130 ms
 The gateway was scaled to three instances behind Nginx. Redis maintained shared rate-limit state across the gateway instances.
-3. Token Bucket
+### 3. Token Bucket
 - Requests: 17,791
 - Failed/blocked requests: 17,216
 - Throughput: 110.6 req/sec
 - p95 latency: 440 ms
 This test evaluates the token-bucket rate-limiting algorithm.
-4. Normal Multi-User Traffic — Phase 7B
+### 4. Normal Multi-User Traffic 
 - Virtual users: 50
 - Requests: 1,121
 - Throughput: ~10 req/sec
