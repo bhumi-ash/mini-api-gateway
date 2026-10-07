@@ -66,7 +66,7 @@ async def gateway_forward(
         )
 
     # Rate limiting
-    if not is_allowed(user_id):
+    if not await is_allowed(user_id):
         raise HTTPException(
             status_code=429,
             detail="Rate limit exceeded, slow down"
