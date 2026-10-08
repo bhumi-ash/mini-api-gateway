@@ -5,8 +5,8 @@ SECRET_KEY = "change-this-to-something-random-later"
 ALGORITHM = "HS256"
 
 FAKE_USERS = {
-    "asha": {"password": "pass123", "user_id": "1"},
-    "ravi": {"password": "pass456", "user_id": "2"},
+    f"user{i}": {"password": "pass123", "user_id": str(i)}
+    for i in range(1, 201)
 }
 
 def create_token(user_id: str) -> str:
